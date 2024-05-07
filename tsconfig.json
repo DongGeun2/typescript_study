@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"], // 컴포넌트 경로 자동화
+      "@pages/*": ["pages/*"], // 페이지 경로 자동화
+      "@api/*": ["src/lib/api/*"], // api 경로 자동화
+      "@assets/*": ["src/assets/*"] // assets(이미지 등 정적파일) 경로 자동화
+    },
+    "target": "es5", // ECMAScript 5
+    "lib": ["dom", "dom.iterable", "esnext"], // TypeScript가 컴파일될 때 사용할 라이브러리 목록
+    "allowJs": true, // TypeScript 컴파일러가 JavaScript 파일도 컴파일할 수 있도록 허용
+    "skipLibCheck": true, // 라이브러리 파일에 대한 타입 검사를 건너뛰도록 설정
+    "strict": true, //  엄격한 타입 검사 옵션을 활성화
+    "forceConsistentCasingInFileNames": true, // 일 이름의 일관된 대소문자 표기를 강제
+    "noEmit": true,
+    "esModuleInterop": true, // CommonJS 및 ES 모듈 간의 상호 운용성을 위한 import 문을 허용
+    "module": "esnext", // 모듈 코드 생성 형식을 지정
+    "moduleResolution": "node",
+    "resolveJsonModule": true, // JSON 파일을 모듈처럼 가져올 수 있도록 허용
+    "isolatedModules": true, // 일 간의 의존성을 제한하여 각 파일이 독립적으로 컴파일 되로록 지정
+    "jsx": "preserve", // JSX 코드를 TypeScript가 처리할 때, 변경 없이 그대로 유지하도록 지정
+    "incremental": true, // 변경된 파일만 다시 컴파일하여 더 빠른 빌드
+    "strictNullChecks": false // null 및 undefined 값에 대한 엄격한 체크를 비활성화
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "src",
+    "node_modules/@sendbird/uikit-react/index.d.ts"
+  ],
+  "exclude": ["node_modules"]
+}
