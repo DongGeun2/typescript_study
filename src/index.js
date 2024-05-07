@@ -5,12 +5,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ThemeProvider from "./styles/ThemeProvider";
+import ProductContextPrivider from "./store/UserContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <App />
+      <ProductContextPrivider>
+        <App />
+      </ProductContextPrivider>
     </ThemeProvider>
   </React.StrictMode>
 );
