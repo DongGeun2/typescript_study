@@ -5,10 +5,11 @@ export const SCalendarWeek = styled.table`
   height: 30px;
 
   color: #555;
-  background: #ffffff;
+  background: #f8f8f8;
 
   padding: 0 14px;
 
+  border-top: 1px solid #dadada;
   border-bottom: 1px solid #f1f1f1;
 
   .calendar-header-container-item {

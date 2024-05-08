@@ -3,8 +3,8 @@ import React from "react";
 import useDate from "src/hook/useDate";
 import { addMonth, subMonth } from "src/utils/utils";
 
-import { MdArrowBackIosNew } from "react-icons/md";
-import { MdArrowForwardIos } from "react-icons/md";
+import { MdArrowLeft } from "react-icons/md";
+import { MdArrowRight } from "react-icons/md";
 
 import { ICalendarHeader } from "../Calendar.props";
 import { SCalendarHeader } from "./CalendarHeader.styled";
@@ -15,23 +15,39 @@ const CalendarHeader = ({ currentDate, onChange }: ICalendarHeader) => {
   const onEvent = {
     onPrevDate: () => onChange(subMonth(currentDate)),
     onNextDate: () => onChange(addMonth(currentDate)),
+    onToday: () => onChange(new Date()),
   };
 
   return (
     <SCalendarHeader>
       <div className="calendar-date-change-section">
-        <button className="calendar-change-button" onClick={onEvent.onPrevDate}>
-          <MdArrowBackIosNew />
-        </button>
-
         <div className="calendar-date-format">
           <p>{year}년</p>
           <p>{month}월</p>
         </div>
 
-        <button className="calendar-change-button" onClick={onEvent.onNextDate}>
-          <MdArrowForwardIos />
-        </button>
+        <div className="calendar-change-button-container">
+          <button
+            className="calendar-change-button"
+            onClick={onEvent.onPrevDate}
+          >
+            <MdArrowLeft />
+          </button>
+
+          <button
+            className="calendar-change-button"
+            onClick={onEvent.onNextDate}
+          >
+            <MdArrowRight />
+          </button>
+
+          <button
+            className="calendar-change-button today"
+            onClick={onEvent.onToday}
+          >
+            오늘
+          </button>
+        </div>
       </div>
     </SCalendarHeader>
   );
