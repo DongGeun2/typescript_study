@@ -61,6 +61,8 @@ const useDate = (currentDate: Date) => {
     const getNextMonth = newNextDate.getMonth();
     const getNextStartDate = 7 - newNextDate.getDay();
 
+    if (getNextStartDate === 7) return [];
+
     return new Array(getNextStartDate).fill("").map((_, i) => {
       const getCurrentDay = i + 1;
 
