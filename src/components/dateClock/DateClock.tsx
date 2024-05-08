@@ -30,9 +30,11 @@ const DateClock = () => {
   );
 
   return (
-    <SDateClock>
-      {`${formatDate.year}.${formatDate.month}.${formatDate.day}.(${formatDate.week.ko}) ${formatDate.hours}:${formatDate.minutes}:${formatDate.seconds}`}
-    </SDateClock>
+    <>
+      <SDateClock>
+        {`${formatDate.year}.${formatDate.month}.${formatDate.day}.(${formatDate.week.ko}) ${formatDate.hours}:${formatDate.minutes}:${formatDate.seconds}`}
+      </SDateClock>
+    </>
   );
 };
 
