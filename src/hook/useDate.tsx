@@ -39,6 +39,8 @@ const useDate = (currentDate: Date) => {
     const getPrevLastDate = newPrevDate.getDate();
     const getPrevLastDay = newPrevDate.getDay() + 1;
 
+    if (getPrevLastDay === 7) return [];
+
     return new Array(getPrevLastDay).fill("").map((_, i) => {
       const getCurrentDay = getPrevLastDate - (getPrevLastDay - (i + 1));
 
@@ -53,11 +55,11 @@ const useDate = (currentDate: Date) => {
   };
 
   const getNextDate = () => {
-    const newNextDate = new Date(getCurrentYear, getCurrentMonth + 1, 1);
+    const newNextDate = new Date(getCurrentYear, getCurrentMonth, 1);
 
     const getNextYear = newNextDate.getFullYear();
     const getNextMonth = newNextDate.getMonth();
-    const getNextStartDate = newNextDate.getDay();
+    const getNextStartDate = 7 - newNextDate.getDay();
 
     return new Array(getNextStartDate).fill("").map((_, i) => {
       const getCurrentDay = i + 1;
