@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const SCalendar = styled.div`
   width: 100%;
+  height: calc(100vh - 55px);
 
-  border: 1px solid #636363;
+  display: flex;
+  flex-direction: column;
 `;

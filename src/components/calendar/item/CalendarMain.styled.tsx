@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SCalendarMain = styled.article`
   width: 100%;
-  height: 500px;
+  flex: 1;
 
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@ export const SCalendarMain = styled.article`
 
   .calendar-week-container {
     width: 100%;
-    height: 20%;
+    height: 100%;
     padding: 0 14px;
   }
 

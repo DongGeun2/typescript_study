@@ -5,7 +5,6 @@ export const SHeader = styled.header`
   height: 55px;
 
   background-color: #636363;
-  border-radius: 10px 10px 0 0;
 
   display: flex;
   align-items: center;
