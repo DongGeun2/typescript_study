@@ -68,7 +68,7 @@ const useDate = (currentDate: Date) => {
     });
   };
 
-  const data = useMemo(() => {
+  const renderDate = useMemo(() => {
     const pDate = getPrevDate();
     const cDate = getCurrentDate();
     const nDate = getNextDate();
@@ -94,7 +94,12 @@ const useDate = (currentDate: Date) => {
     return resultArray;
   }, [currentDate]);
 
-  return { data };
+  return {
+    year: getCurrentYear,
+    month: getCurrentMonth,
+
+    renderDate,
+  };
 };
 
 export default useDate;

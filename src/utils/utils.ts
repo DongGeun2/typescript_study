@@ -15,3 +15,15 @@ export function setWeek(day: number): { ko: string } {
 export function addZeroto0(number: number): string {
   return number < 9 ? `0${number}` : `${number}`;
 }
+
+export function addMonth(date: Date): Date {
+  date.setMonth(date.getMonth() + 1);
+
+  return new Date(date);
+}
+
+export function subMonth(date: Date): Date {
+  date.setMonth(date.getMonth() - 1);
+
+  return new Date(date);
+}
