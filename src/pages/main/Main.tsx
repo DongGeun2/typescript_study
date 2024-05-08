@@ -1,14 +1,18 @@
 import React from "react";
 
-import Layout from "src/layout/Layout";
 import { SMain } from "./Main.styled";
+import useDate from "src/hook/useDate";
+
+import Layout from "src/layout/Layout";
 
 const Main = () => {
+  const { data } = useDate(new Date());
+
+  console.log(data);
+
   return (
     <Layout>
-      <SMain>
-        <button className="booking-button">예약하기</button>
-      </SMain>
+      <SMain></SMain>
     </Layout>
   );
 };
