@@ -9,11 +9,15 @@ type returnDate = {
 };
 
 const useDate = (currentDate: Date) => {
-  const getCurrentYear = currentDate.getFullYear();
-  const getCurrentMonth = currentDate.getMonth() + 1;
+  const getYear = currentDate.getFullYear();
+  const getMonth = currentDate.getMonth() + 1;
+  const getDate = new Date(getYear, getMonth, 0);
+
+  const getCurrentYear = getDate.getFullYear();
+  const getCurrentMonth = getDate.getMonth() + 1;
 
   const getCurrentDate = () => {
-    const getCurrentLastDate = currentDate.getDate();
+    const getCurrentLastDate = getDate.getDate();
 
     return new Array(getCurrentLastDate).fill("").map((_, i) => {
       const getCurrentDay = i + 1;
