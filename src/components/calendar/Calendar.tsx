@@ -19,7 +19,7 @@ const Calendar = () => {
       <div className="calendar-container">
         <CalendarHeader currentDate={currentDate} onChange={onChangeDate} />
         <CalendarWeek />
-        <CalendarMain currentDate={currentDate} />
+        <CalendarMain currentDate={currentDate} onChange={onChangeDate} />
       </div>
 
       <CalendarFooter />

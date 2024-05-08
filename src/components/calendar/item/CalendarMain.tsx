@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import useDate from "src/hook/useDate";
+import { addMonth, subMonth } from "src/utils/utils";
 
 import { SCalendarMain } from "./CalendarMain.styled";
+import { ICalendarHeader } from "../Calendar.props";
 
-const CalendarMain = ({ currentDate }: { currentDate: Date }) => {
+const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
+  const mainRef = useRef<HTMLElement>();
+
   const { renderDate } = useDate(currentDate);
 
+  useEffect(() => {
+    const current = mainRef.current;
+
+    if (current) {
+      const onChangeDate = (e: { deltaY: number }) => {
+        if (e.deltaY > 0) {
+          // console.log("down");
+          onChange(addMonth(currentDate));
+        } else {
+          // console.log("up");
+          onChange(subMonth(currentDate));
+        }
+      };
+
+      current.addEventListener("wheel", onChangeDate);
+
+      return () => current.removeEventListener("wheel", onChangeDate);
+    }
+  }, []);
+
   return (
-    <SCalendarMain>
+    <SCalendarMain ref={mainRef}>
       {renderDate?.map((week, i) => (
         <div key={i} className="calendar-week-container">
           <table className="calendar-week-table">
