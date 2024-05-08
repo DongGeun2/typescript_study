@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { SCalendar } from "./Calendar.styled";
 
 import CalendarHeader from "./item/CalendarHeader";
+import CalendarWeek from "./item/CalendarWeek";
 import CalendarMain from "./item/CalendarMain";
 
 const Calendar = () => {
@@ -15,6 +16,7 @@ const Calendar = () => {
   return (
     <SCalendar>
       <CalendarHeader currentDate={currentDate} onChange={onChangeDate} />
+      <CalendarWeek />
       <CalendarMain currentDate={currentDate} />
     </SCalendar>
   );
