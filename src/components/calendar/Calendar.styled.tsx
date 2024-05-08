@@ -7,5 +7,13 @@ export const SCalendar = styled.div`
   display: flex;
   flex-direction: column;
 
-  position: relative;
+  .calendar-container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+  }
 `;
