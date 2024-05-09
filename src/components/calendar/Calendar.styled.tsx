@@ -14,6 +14,7 @@ export const SCalendar = styled.div<ISCalendar>`
     height: 100%;
 
     display: flex;
+    overflow: hidden;
   }
 
   .calendar-container {
@@ -28,7 +29,7 @@ export const SCalendar = styled.div<ISCalendar>`
     transition: width 250ms ease-in-out;
 
     ${(props) =>
-      props.openView &&
+      props.$openView &&
       css`
         width: calc(100% - 300px);
       `}
@@ -49,7 +50,7 @@ export const SCalendar = styled.div<ISCalendar>`
     border-left: 1px solid #636363;
 
     ${(props) =>
-      props.openView &&
+      props.$openView &&
       css`
         width: 300px;
       `}

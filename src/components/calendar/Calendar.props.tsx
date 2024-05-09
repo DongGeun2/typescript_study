@@ -16,5 +16,10 @@ export interface ICalendarMain extends ICalendarHeader {
 }
 
 export interface ISCalendar {
-  openView: boolean;
+  $openView: boolean;
+}
+
+export interface IHolidayView {
+  selectedDate: Date[];
+  onSelectedClear: () => void;
 }

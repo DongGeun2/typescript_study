@@ -46,7 +46,8 @@ const CalendarMain = ({
 
   const { data: holidayData, isLoading } = useQuery(
     ["holiday", year],
-    fetchData
+    fetchData,
+    { enabled: !!year }
   );
 
   useEffect(() => {

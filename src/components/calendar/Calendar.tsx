@@ -8,6 +8,8 @@ import CalendarWeek from "./item/CalendarWeek";
 import CalendarMain from "./item/CalendarMain";
 import CalendarFooter from "./item/CalendarFooter";
 
+import HolidayView from "./holiday/HolidayView";
+
 const Calendar = ({ selectedDate, onSelectDate }: ICalendar) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
@@ -35,8 +37,12 @@ const Calendar = ({ selectedDate, onSelectDate }: ICalendar) => {
     onSelectDate(temp);
   };
 
+  const onSelectedClear = () => {
+    onSelectDate([]);
+  };
+
   return (
-    <SCalendar openView={selectedDate?.length > 0}>
+    <SCalendar $openView={selectedDate?.length > 0}>
       <div className="calendar-section-container">
         <div className="calendar-container">
           <CalendarHeader currentDate={currentDate} onChange={onChangeDate} />
@@ -49,7 +55,12 @@ const Calendar = ({ selectedDate, onSelectDate }: ICalendar) => {
           />
         </div>
 
-        <div className="calendar-holiday-view-container"></div>
+        <div className="calendar-holiday-view-container">
+          <HolidayView
+            selectedDate={selectedDate}
+            onSelectedClear={onSelectedClear}
+          />
+        </div>
       </div>
 
       <CalendarFooter />
