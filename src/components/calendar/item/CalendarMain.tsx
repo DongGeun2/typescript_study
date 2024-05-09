@@ -16,6 +16,7 @@ type ICheckStatus =
   | "selectedMiddle"
   | "selectedSame"
   | "";
+type ICheckDisabeld = "disabled" | "";
 
 const CalendarMain = ({
   currentDate,
@@ -90,6 +91,22 @@ const CalendarMain = ({
     return result;
   };
 
+  const checkDisabled = (item: returnDate): ICheckDisabeld => {
+    const startDate = new Date(selectedDate[0]);
+    startDate.setFullYear(new Date(selectedDate[0]).getFullYear() + 2);
+
+    const date = formatDate(item?.date);
+    const formatStartDate = formatDate(startDate);
+    const endPoint = formatDate(new Date(2025, 12, 0));
+
+    let result: ICheckDisabeld = "";
+
+    if (date > formatStartDate) result = "disabled";
+    if (date > endPoint) result = "disabled";
+
+    return result;
+  };
+
   return (
     <SCalendarMain ref={mainRef}>
       {renderDate?.map((week, i) => (
@@ -98,13 +115,11 @@ const CalendarMain = ({
             <tbody>
               <tr>
                 {week?.map((item) => {
-                  const day = item.day;
-
+                  const day: number = item.day;
                   const date: string = item?.formatDate;
+
                   const isToday: boolean = today === date;
                   const isOpacity: boolean = item?.isOpacity;
-
-                  const selectedStatus = checkSelected(item);
 
                   let holiday: IHoliday = { date: "", localName: "", name: "" };
 
@@ -112,10 +127,11 @@ const CalendarMain = ({
                     holiday = holidayData[date];
                   }
 
-                  const className = `calendar-day-container 
+                  const className = `
                   ${isToday ? "isToday" : ""}
                   ${isOpacity ? "isOpacity" : ""}
-                  ${selectedStatus}
+                  ${checkSelected(item)}
+                  ${checkDisabled(item)}
                   ${holiday.date ? "holiday" : ""}
                   `.trim();
 
@@ -123,8 +139,12 @@ const CalendarMain = ({
                     <td
                       key={date}
                       aria-label={date}
-                      className={className}
-                      onClick={() => onSelectDate(item.date)}
+                      className={`calendar-day-container ${className}`}
+                      onClick={
+                        checkDisabled(item) !== "disabled"
+                          ? () => onSelectDate(item.date)
+                          : () => {}
+                      }
                     >
                       <div className="calendar-day-item">
                         <p>{day}</p>

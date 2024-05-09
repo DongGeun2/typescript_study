@@ -91,5 +91,10 @@ export const SCalendarMain = styled.article`
 
       border-radius: 10px;
     }
+    &.disabled {
+      background-color: #eeeeee40;
+      text-decoration: line-through;
+      cursor: no-drop;
+    }
   }
 `;
