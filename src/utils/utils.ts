@@ -13,7 +13,7 @@ export function setWeek(day: number): { ko: string } {
 }
 
 export function addZeroto0(number: number): string {
-  return number < 9 ? `0${number}` : `${number}`;
+  return number < 10 ? `0${number}` : `${number}`;
 }
 
 export function addMonth(date: Date): Date {

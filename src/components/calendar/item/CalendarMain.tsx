@@ -57,8 +57,6 @@ const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
     }
   }, []);
 
-  console.log(today);
-
   return (
     <SCalendarMain ref={mainRef}>
       {renderDate?.map((week, i) => (
@@ -74,6 +72,8 @@ const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
                   const isOpacity: boolean = date?.isOpacity;
 
                   let holiday: IHoliday = { date: "", localName: "", name: "" };
+
+                  console.log(holiday);
 
                   if (holidayData[formatDate]) {
                     holiday = holidayData[formatDate];
