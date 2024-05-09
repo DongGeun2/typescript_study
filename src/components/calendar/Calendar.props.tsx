@@ -14,3 +14,7 @@ export interface ICalendarMain extends ICalendarHeader {
   selectedDate: Date[];
   onSelectDate: (date: Date) => void;
 }
+
+export interface ISCalendar {
+  openView: boolean;
+}

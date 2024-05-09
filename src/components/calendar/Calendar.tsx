@@ -36,16 +36,20 @@ const Calendar = ({ selectedDate, onSelectDate }: ICalendar) => {
   };
 
   return (
-    <SCalendar>
-      <div className="calendar-container">
-        <CalendarHeader currentDate={currentDate} onChange={onChangeDate} />
-        <CalendarWeek />
-        <CalendarMain
-          currentDate={currentDate}
-          onChange={onChangeDate}
-          selectedDate={selectedDate}
-          onSelectDate={onSelectFormatDate}
-        />
+    <SCalendar openView={selectedDate?.length > 0}>
+      <div className="calendar-section-container">
+        <div className="calendar-container">
+          <CalendarHeader currentDate={currentDate} onChange={onChangeDate} />
+          <CalendarWeek />
+          <CalendarMain
+            currentDate={currentDate}
+            onChange={onChangeDate}
+            selectedDate={selectedDate}
+            onSelectDate={onSelectFormatDate}
+          />
+        </div>
+
+        <div className="calendar-holiday-view-container"></div>
       </div>
 
       <CalendarFooter />

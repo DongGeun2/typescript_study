@@ -10,7 +10,12 @@ import { SCalendarMain } from "./CalendarMain.styled";
 import { ICalendarMain } from "../Calendar.props";
 
 type IfetchData = { [key: string]: IHoliday };
-type ICheckStatus = "selectedStart" | "selectedEnd" | "selectedMiddle" | "";
+type ICheckStatus =
+  | "selectedStart"
+  | "selectedEnd"
+  | "selectedMiddle"
+  | "selectedSame"
+  | "";
 
 const CalendarMain = ({
   currentDate,
@@ -76,6 +81,10 @@ const CalendarMain = ({
       result = "selectedEnd";
     } else if (date > startDate && date < endDate) {
       result = "selectedMiddle";
+    }
+
+    if (startDate === date && endDate === date) {
+      result = "selectedSame";
     }
 
     return result;
