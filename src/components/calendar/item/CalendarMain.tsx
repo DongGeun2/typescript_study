@@ -68,7 +68,7 @@ const CalendarMain = ({
 
       return () => current.removeEventListener("wheel", onChangeDate);
     }
-  }, []);
+  }, [currentDate]);
 
   const checkSelected = (item: returnDate): ICheckStatus => {
     const date = formatDate(item?.date);
