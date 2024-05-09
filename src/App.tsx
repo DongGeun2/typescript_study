@@ -1,17 +1,19 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Main from "./pages/main/Main";
-import Booking from "./pages/booking/Booking";
+const Main = lazy(() => import("./pages/main/Main"));
+const Booking = lazy(() => import("./pages/booking/Booking"));
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/Booking" element={<Booking />} />
-      </Routes>
+      <Suspense fallback={<div className="loader-container"></div>}>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/Booking" element={<Booking />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }
