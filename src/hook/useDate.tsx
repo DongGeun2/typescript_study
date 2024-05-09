@@ -51,6 +51,16 @@ const useDate = (currentDate: Date) => {
   const getCurrentYear = getDate.getFullYear();
   const getCurrentMonth = getDate.getMonth() + 1;
 
+  const getToday = (): string => {
+    const toDate = new Date();
+
+    const getYear = toDate.getFullYear();
+    const getMonth = toDate.getMonth() + 1;
+    const getDay = toDate.getDate();
+
+    return `${getYear}-${addZeroto0(getMonth)}-${addZeroto0(getDay)}`;
+  };
+
   const getCurrentDate = () => {
     const getCurrentLastDate = getDate.getDate();
 
@@ -131,6 +141,7 @@ const useDate = (currentDate: Date) => {
   }, [currentDate]);
 
   return {
+    today: getToday(),
     year: getCurrentYear,
     month: getCurrentMonth,
 

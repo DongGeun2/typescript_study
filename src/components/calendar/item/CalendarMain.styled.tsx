@@ -20,6 +20,7 @@ export const SCalendarMain = styled.article`
     width: 100%;
     height: 100%;
 
+    border-spacing: 0;
     border-bottom: 1px solid #e6e6e6;
   }
 
@@ -39,17 +40,28 @@ export const SCalendarMain = styled.article`
     text-align: left;
     font-weight: normal;
 
-    font-size: 14px;
+    font-size: 1.3rem;
     color: #555555;
 
     border-left: 1px solid #f4f4f4;
 
-    &.holiday > p {
-      color: #f00;
+    &.isToday {
+      background-color: #fff7e4;
     }
 
-    &.isOpacity > p {
+    &.holiday {
+      color: #f00 !important;
+    }
+
+    &.isOpacity > .calendar-day-item {
       opacity: 0.4;
+    }
+
+    .calendar-day-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 `;

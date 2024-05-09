@@ -14,7 +14,7 @@ type IfetchData = { [key: string]: IHoliday };
 const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
   const mainRef = useRef<HTMLElement>();
 
-  const { year, renderDate } = useDate(currentDate);
+  const { today, year, renderDate } = useDate(currentDate);
 
   const fetchData = async (): Promise<IfetchData> => {
     try {
@@ -37,18 +37,16 @@ const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
     fetchData
   );
 
-  console.log(holidayData);
-
   useEffect(() => {
     const current = mainRef.current;
 
     if (current) {
       const onChangeDate = (e: { deltaY: number }) => {
         if (e.deltaY > 0) {
-          // console.log("down");
+          // Down
           onChange(addMonth(currentDate));
         } else {
-          // console.log("up");
+          // Up
           onChange(subMonth(currentDate));
         }
       };
@@ -58,6 +56,8 @@ const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
       return () => current.removeEventListener("wheel", onChangeDate);
     }
   }, []);
+
+  console.log(today);
 
   return (
     <SCalendarMain ref={mainRef}>
@@ -70,6 +70,7 @@ const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
                   const day = date.day;
 
                   const formatDate: string = date?.formatDate;
+                  const isToday: boolean = today === formatDate;
                   const isOpacity: boolean = date?.isOpacity;
 
                   let holiday: IHoliday = { date: "", localName: "", name: "" };
@@ -79,9 +80,10 @@ const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
                   }
 
                   const className = `calendar-day-container 
+                  ${isToday ? "isToday" : ""}
                   ${isOpacity ? "isOpacity" : ""}
                   ${holiday.date ? "holiday" : ""}
-                  `;
+                  `.trim();
 
                   return (
                     <td
@@ -89,8 +91,10 @@ const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
                       aria-label={formatDate}
                       className={className}
                     >
-                      <p>{day}</p>
-                      <p>{holiday.localName || ""}</p>
+                      <div className="calendar-day-item">
+                        <p>{day}</p>
+                        <span>{holiday.localName || ""}</span>
+                      </div>
                     </td>
                   );
                 })}
