@@ -38,4 +38,43 @@ export const SHolidayView = styled.div`
       color: rgb(29, 153, 255);
     }
   }
+
+  .holiday-view-list-header {
+    width: 100%;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 15px;
+    font-size: 1.4rem;
+  }
+
+  .holiday-view-list-container {
+    width: 100%;
+    height: 500px;
+
+    border: 1px solid #eeeeee;
+
+    overflow-y: auto;
+    overflow-x: none;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 10px;
+
+    .holiday-view-list-item {
+      width: 100%;
+      padding: 12px;
+
+      border-bottom: 1px solid #eeeeee;
+
+      font-size: 1.3rem;
+      font-weight: bold;
+
+      display: flex;
+      flex-direction: column;
+    }
+  }
 `;
