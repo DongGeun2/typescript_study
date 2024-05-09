@@ -63,5 +63,27 @@ export const SCalendarMain = styled.article`
       align-items: center;
       justify-content: space-between;
     }
+
+    &:hover {
+      cursor: pointer;
+      background-color: #eeeeee;
+    }
+
+    &.selectedStart {
+      color: #fff !important;
+      background-color: #1d99ff !important;
+
+      border-radius: 10px 0 0 10px;
+    }
+    &.selectedMiddle {
+      color: #fff !important;
+      background-color: #1d99ffd1 !important;
+    }
+    &.selectedEnd {
+      color: #fff !important;
+      background-color: #1d99ff !important;
+
+      border-radius: 0 10px 10px 0;
+    }
   }
 `;

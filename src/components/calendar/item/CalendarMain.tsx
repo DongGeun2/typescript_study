@@ -1,17 +1,23 @@
 import React, { useEffect, useRef } from "react";
 
+import { addMonth, formatDate, subMonth } from "src/utils/utils";
+
 import { useQuery } from "react-query";
+import useDate, { returnDate } from "src/hook/useDate";
 import holidayService, { IHoliday } from "src/service/holidayService";
 
-import useDate from "src/hook/useDate";
-import { addMonth, subMonth } from "src/utils/utils";
-
 import { SCalendarMain } from "./CalendarMain.styled";
-import { ICalendarHeader } from "../Calendar.props";
+import { ICalendarMain } from "../Calendar.props";
 
 type IfetchData = { [key: string]: IHoliday };
+type ICheckStatus = "selectedStart" | "selectedEnd" | "selectedMiddle" | "";
 
-const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
+const CalendarMain = ({
+  currentDate,
+  onChange,
+  selectedDate,
+  onSelectDate,
+}: ICalendarMain) => {
   const mainRef = useRef<HTMLElement>();
 
   const { today, year, renderDate } = useDate(currentDate);
@@ -57,6 +63,24 @@ const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
     }
   }, []);
 
+  const checkSelected = (item: returnDate): ICheckStatus => {
+    const date = formatDate(item?.date);
+    const startDate = formatDate(selectedDate[0]);
+    const endDate = formatDate(selectedDate[1]);
+
+    let result: ICheckStatus = "";
+
+    if (startDate === date) {
+      result = "selectedStart";
+    } else if (endDate === date) {
+      result = "selectedEnd";
+    } else if (date > startDate && date < endDate) {
+      result = "selectedMiddle";
+    }
+
+    return result;
+  };
+
   return (
     <SCalendarMain ref={mainRef}>
       {renderDate?.map((week, i) => (
@@ -64,32 +88,34 @@ const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
           <table className="calendar-week-table">
             <tbody>
               <tr>
-                {week?.map((date) => {
-                  const day = date.day;
+                {week?.map((item) => {
+                  const day = item.day;
 
-                  const formatDate: string = date?.formatDate;
-                  const isToday: boolean = today === formatDate;
-                  const isOpacity: boolean = date?.isOpacity;
+                  const date: string = item?.formatDate;
+                  const isToday: boolean = today === date;
+                  const isOpacity: boolean = item?.isOpacity;
+
+                  const selectedStatus = checkSelected(item);
 
                   let holiday: IHoliday = { date: "", localName: "", name: "" };
 
-                  console.log(holiday);
-
-                  if (holidayData[formatDate]) {
-                    holiday = holidayData[formatDate];
+                  if (holidayData[date]) {
+                    holiday = holidayData[date];
                   }
 
                   const className = `calendar-day-container 
                   ${isToday ? "isToday" : ""}
                   ${isOpacity ? "isOpacity" : ""}
+                  ${selectedStatus}
                   ${holiday.date ? "holiday" : ""}
                   `.trim();
 
                   return (
                     <td
-                      key={formatDate}
-                      aria-label={formatDate}
+                      key={date}
+                      aria-label={date}
                       className={className}
+                      onClick={() => onSelectDate(item.date)}
                     >
                       <div className="calendar-day-item">
                         <p>{day}</p>

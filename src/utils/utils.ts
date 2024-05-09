@@ -27,3 +27,13 @@ export function subMonth(date: Date): Date {
 
   return new Date(date);
 }
+
+export function formatDate(date: Date): string {
+  if (!date) return "";
+
+  const getYear = date.getFullYear();
+  const getMonth = date.getMonth() + 1;
+  const getDay = date.getDate();
+
+  return `${getYear}-${addZeroto0(getMonth)}-${addZeroto0(getDay)}`;
+}

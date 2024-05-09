@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { addZeroto0 } from "src/utils/utils";
+import { formatDate } from "src/utils/utils";
 
-type returnDate = {
+export type returnDate = {
   year: number;
   month: number;
   day: number;
@@ -24,7 +24,7 @@ class DateDto {
     this.month = month;
     this.day = day;
     this.date = new Date(year, month - 1, day);
-    this.formatDate = `${year}-${addZeroto0(month)}-${addZeroto0(day)}`;
+    this.formatDate = formatDate(this.date);
   }
 
   setOpacity(b: boolean) {
@@ -51,16 +51,14 @@ const useDate = (currentDate: Date) => {
   const getCurrentYear = getDate.getFullYear();
   const getCurrentMonth = getDate.getMonth() + 1;
 
+  // 오늘 날짜
   const getToday = (): string => {
     const toDate = new Date();
 
-    const getYear = toDate.getFullYear();
-    const getMonth = toDate.getMonth() + 1;
-    const getDay = toDate.getDate();
-
-    return `${getYear}-${addZeroto0(getMonth)}-${addZeroto0(getDay)}`;
+    return formatDate(toDate);
   };
 
+  // 이번 달 월 수
   const getCurrentDate = () => {
     const getCurrentLastDate = getDate.getDate();
 
@@ -73,6 +71,7 @@ const useDate = (currentDate: Date) => {
     });
   };
 
+  // [이번 달 월 비례] 지난 달 월 수
   const getPrevDate = () => {
     const newPrevDate = new Date(getCurrentYear, getCurrentMonth - 1, 0);
 
@@ -94,6 +93,7 @@ const useDate = (currentDate: Date) => {
     });
   };
 
+  // [이번 달 월 비례] 다음 달 월 수
   const getNextDate = () => {
     const newNextDate = new Date(getCurrentYear, getCurrentMonth, 1);
 
@@ -114,6 +114,7 @@ const useDate = (currentDate: Date) => {
     });
   };
 
+  // 이번 달 + 지난 달 + 다음 달
   const renderDate = useMemo(() => {
     const pDate = getPrevDate();
     const cDate = getCurrentDate();
