@@ -1,15 +1,43 @@
 import React, { useEffect, useRef } from "react";
 
+import { useQuery } from "react-query";
+import holidayService, { IHoliday } from "src/service/holidayService";
+
 import useDate from "src/hook/useDate";
 import { addMonth, subMonth } from "src/utils/utils";
 
 import { SCalendarMain } from "./CalendarMain.styled";
 import { ICalendarHeader } from "../Calendar.props";
 
+type IfetchData = { [key: string]: IHoliday };
+
 const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
   const mainRef = useRef<HTMLElement>();
 
-  const { renderDate } = useDate(currentDate);
+  const { year, renderDate } = useDate(currentDate);
+
+  const fetchData = async (): Promise<IfetchData> => {
+    try {
+      const res = await holidayService.getHoliday(year);
+
+      const temp: IfetchData = {};
+
+      res.forEach((item) => {
+        temp[item.date] = { ...item };
+      });
+
+      return temp;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { data: holidayData, isLoading } = useQuery(
+    ["holiday", year],
+    fetchData
+  );
+
+  console.log(holidayData);
 
   useEffect(() => {
     const current = mainRef.current;
@@ -39,22 +67,30 @@ const CalendarMain = ({ currentDate, onChange }: ICalendarHeader) => {
             <tbody>
               <tr>
                 {week?.map((date) => {
-                  const year = date.year;
-                  const month = date.month;
                   const day = date.day;
-                  const isOpacity = date?.isOpacity;
 
-                  const key = `${year}-${month}-${day}`;
+                  const formatDate: string = date?.formatDate;
+                  const isOpacity: boolean = date?.isOpacity;
+
+                  let holiday: IHoliday = { date: "", localName: "", name: "" };
+
+                  if (holidayData[formatDate]) {
+                    holiday = holidayData[formatDate];
+                  }
+
+                  const className = `calendar-day-container 
+                  ${isOpacity ? "isOpacity" : ""}
+                  ${holiday.date ? "holiday" : ""}
+                  `;
 
                   return (
                     <td
-                      key={key}
-                      aria-label={key}
-                      className={`calendar-day-container ${
-                        isOpacity ? "calendar-day-isOpacity" : ""
-                      }`}
+                      key={formatDate}
+                      aria-label={formatDate}
+                      className={className}
                     >
-                      <strong>{day}</strong>
+                      <p>{day}</p>
+                      <p>{holiday.localName || ""}</p>
                     </td>
                   );
                 })}

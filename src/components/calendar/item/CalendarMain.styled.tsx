@@ -43,9 +43,13 @@ export const SCalendarMain = styled.article`
     color: #555555;
 
     border-left: 1px solid #f4f4f4;
-  }
 
-  .calendar-day-isOpacity > strong {
-    opacity: 0.4;
+    &.holiday > p {
+      color: #f00;
+    }
+
+    &.isOpacity > p {
+      opacity: 0.4;
+    }
   }
 `;

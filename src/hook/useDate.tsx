@@ -1,12 +1,47 @@
 import { useMemo } from "react";
+import { addZeroto0 } from "src/utils/utils";
 
 type returnDate = {
   year: number;
   month: number;
   day: number;
   date: Date;
+  formatDate: string;
   isOpacity?: boolean;
 };
+
+class DateDto {
+  private year: number;
+  private month: number;
+  private day: number;
+  private date: Date;
+  private formatDate: string;
+
+  private isOpacity: boolean = false;
+
+  constructor(year: number, month: number, day: number) {
+    this.year = year;
+    this.month = month;
+    this.day = day;
+    this.date = new Date(year, month - 1, day);
+    this.formatDate = `${year}-${addZeroto0(month)}-${addZeroto0(day)}`;
+  }
+
+  setOpacity(b: boolean) {
+    this.isOpacity = b;
+  }
+
+  getAll() {
+    return {
+      year: this.year,
+      month: this.month,
+      day: this.day,
+      date: this.date,
+      isOpacity: this.isOpacity,
+      formatDate: this.formatDate,
+    };
+  }
+}
 
 const useDate = (currentDate: Date) => {
   const getYear = currentDate.getFullYear();
@@ -22,12 +57,9 @@ const useDate = (currentDate: Date) => {
     return new Array(getCurrentLastDate).fill("").map((_, i) => {
       const getCurrentDay = i + 1;
 
-      return {
-        year: getCurrentYear,
-        month: getCurrentMonth,
-        day: getCurrentDay,
-        date: new Date(getCurrentYear, getCurrentMonth - 1, getCurrentDay),
-      };
+      const dto = new DateDto(getCurrentYear, getCurrentMonth, getCurrentDay);
+
+      return dto.getAll();
     });
   };
 
@@ -44,13 +76,11 @@ const useDate = (currentDate: Date) => {
     return new Array(getPrevLastDay).fill("").map((_, i) => {
       const getCurrentDay = getPrevLastDate - (getPrevLastDay - (i + 1));
 
-      return {
-        year: getPrevYear,
-        month: getPrevMonth,
-        day: getCurrentDay,
-        date: new Date(getPrevYear, getPrevMonth - 1, getCurrentDay),
-        isOpacity: true,
-      };
+      const dto = new DateDto(getPrevYear, getPrevMonth, getCurrentDay);
+
+      dto.setOpacity(true);
+
+      return dto.getAll();
     });
   };
 
@@ -58,7 +88,7 @@ const useDate = (currentDate: Date) => {
     const newNextDate = new Date(getCurrentYear, getCurrentMonth, 1);
 
     const getNextYear = newNextDate.getFullYear();
-    const getNextMonth = newNextDate.getMonth();
+    const getNextMonth = newNextDate.getMonth() + 1;
     const getNextStartDate = 7 - newNextDate.getDay();
 
     if (getNextStartDate === 7) return [];
@@ -66,13 +96,11 @@ const useDate = (currentDate: Date) => {
     return new Array(getNextStartDate).fill("").map((_, i) => {
       const getCurrentDay = i + 1;
 
-      return {
-        year: getNextYear,
-        month: getNextMonth,
-        day: getCurrentDay,
-        date: new Date(getNextYear, getNextMonth - 1, getCurrentDay),
-        isOpacity: true,
-      };
+      const dto = new DateDto(getNextYear, getNextMonth, getCurrentDay);
+
+      dto.setOpacity(true);
+
+      return dto.getAll();
     });
   };
 
