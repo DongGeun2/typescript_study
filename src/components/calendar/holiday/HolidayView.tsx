@@ -11,6 +11,8 @@ const HolidayView = ({ selectedDate, onSelectedClear }: IHolidayView) => {
   const [returnList, setReturnList] = useState<IHoliday[]>([]);
 
   useEffect(() => {
+    setReturnList([]);
+
     if (!(selectedDate[0] && selectedDate[1])) return;
 
     const startDate = formatDate(selectedDate[0]);
@@ -36,7 +38,7 @@ const HolidayView = ({ selectedDate, onSelectedClear }: IHolidayView) => {
         });
 
         holidayList.forEach((item: IHoliday) => {
-          if (startDate < item.date && endDate > item.date)
+          if (startDate <= item.date && endDate >= item.date)
             returnList.push(item);
         });
 
